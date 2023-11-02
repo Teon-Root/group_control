@@ -1,24 +1,15 @@
+import asyncio
 from aiogram import types, Router, F
-from aiogram.filters import StateFilter
+from aiogram.filters import StateFilter, Text
 from aiogram.fsm.context import FSMContext
 from aiogram.utils.markdown import hcode
 
+
 echo_router = Router()
 
-
-@echo_router.message(F.text, StateFilter(None))
+@echo_router.message(~Text(contains='#'))
 async def bot_echo(message: types.Message):
-    text = ["Ехо без стану.", "Повідомлення:", message.text]
-
-    await message.answer("\n".join(text))
-
-
-@echo_router.message(F.text)
-async def bot_echo_all(message: types.Message, state: FSMContext):
-    state_name = await state.get_state()
-    text = [
-        f"Ехо у стані {hcode(state_name)}",
-        "Зміст повідомлення:",
-        hcode(message.text),
-    ]
-    await message.answer("\n".join(text))
+    text_test2 = ['Публікуйте ваше повідомлення використовуючи хештег\n#водій / #пасажир']
+    msg = await message.reply("\n".join(text_test2))
+    await asyncio.sleep(5)
+    await msg.delete()
