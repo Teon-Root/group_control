@@ -9,7 +9,8 @@ echo_router = Router()
 
 @echo_router.message(~Text(contains='#'))
 async def bot_echo(message: types.Message):
-    text_test2 = ['Публікуйте ваше повідомлення використовуючи хештег\n#водій / #пасажир']
-    msg = await message.reply("\n".join(text_test2))
-    await asyncio.sleep(5)
-    await msg.delete()
+    if message.chat.id != -1001971714044:
+        msg = await message.reply('Публікуйте ваше повідомлення використовуючи хештег\n#водій / #пасажир')
+        await asyncio.sleep(5)
+        await msg.delete()
+
